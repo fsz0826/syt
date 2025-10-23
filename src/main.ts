@@ -6,11 +6,18 @@ import router from "./router";
 //use element-plus
 import ElementPlus from "element-plus";
 import "element-plus/dist/index.css";
+//use element-plus icon
+import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 
 import HospitalTop from "@/components/hospital_top/index.vue";
 import HospitalBottom from "@/components/hospital_bottom/index.vue";
 
 const app = createApp(App);
+
+//use element-plus icon
+for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+  app.component(key, component);
+}
 
 app.component("HospitalTop", HospitalTop);
 app.component("HospitalBottom", HospitalBottom);
