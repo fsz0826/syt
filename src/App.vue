@@ -1,8 +1,10 @@
 <template>
   <div class="container">
     <HospitalTop />
-    <div class="content">123</div>
-    <div class="bottom"></div>
+    <div class="content">
+      <RouterView />
+    </div>
+    <HospitalBottom />
   </div>
 </template>
 
@@ -17,7 +19,6 @@
     min-height: 700px;
     width: 1200px;
     margin-top: 70px;
-    background-color: red;
   }
 }
 </style>
