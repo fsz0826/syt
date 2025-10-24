@@ -88,6 +88,7 @@
           display: flex;
           align-items: center;
           svg {
+            fill: #7f7f7f;
             transform: translateY(1px); // 根据实际情况调整数值
           }
           span {
