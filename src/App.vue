@@ -8,15 +8,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
-  import { onMounted } from "vue";
-  import request from "@/utils/request";
-  onMounted(() => {
-    request.get("/user?page=3&size=10").then((res) => {
-      console.log(res);
-    });
-  });
-</script>
+<script setup lang="ts"></script>
 
 <style scoped lang="scss">
   .container {
