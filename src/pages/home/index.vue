@@ -7,7 +7,15 @@
         <Level />
         <Region />
         <div class="hospital">
-          <HospitalCard v-for="item in 10" :key="item" class="item" />
+          <div v-if="hospitalList" class="hospital_card">
+            <HospitalCard
+              :hospital="hospital"
+              v-for="hospital in hospitalList"
+              :key="hospital.id"
+              class="item"
+            />
+          </div>
+          <el-empty v-else description="description" />
           <Pagination />
         </div>
       </el-col>
@@ -22,16 +30,33 @@
   import Region from "./region/index.vue";
   import HospitalCard from "./card/index.vue";
   import Pagination from "./pagination/index.vue";
+  import { reqHospital } from "@/api/home";
+  import { onMounted, ref } from "vue";
+  const hospitalList = ref();
+
+  const test = async () => {
+    const result = await reqHospital();
+    hospitalList.value = result.data.myOrgInfos;
+    console.log(hospitalList.value);
+  };
+
+  onMounted(() => {
+    test();
+  });
 </script>
 <style lang="scss" scoped>
   .hospital {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    // display: flex;
     margin-bottom: 10px;
-    .item {
-      width: 48%;
-      margin: 10px 0;
+    .hospital_card {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      .item {
+        width: 48%;
+        margin: 10px 0;
+      }
     }
   }
 </style>

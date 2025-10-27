@@ -3,7 +3,7 @@
     <el-card shadow="hover">
       <div class="content">
         <div class="left">
-          <div class="hospital_name">河南省人民医院</div>
+          <div class="hospital_name">{{ hospital.name }}</div>
           <div class="tip">
             <div class="level">
               <svg
@@ -21,7 +21,7 @@
                   p-id="4669"
                 ></path>
               </svg>
-              <span>三级甲等</span>
+              <span>{{ levelName }}</span>
             </div>
             <div class="time">
               <svg
@@ -71,18 +71,44 @@
     </el-card>
   </div>
 </template>
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+  import { ref } from "vue";
+
+  const props = defineProps(["hospital"]);
+  const levelName = ref<string>("");
+  switch (props.hospital.medicalLevel) {
+    case "AAA":
+      levelName.value = "三级甲等";
+      break;
+    case "BBB":
+      levelName.value = "三级乙等";
+      break;
+    case "AA":
+      levelName.value = "二级甲等";
+      break;
+    case "BB":
+      levelName.value = "二级乙等";
+      break;
+    case "O":
+      levelName.value = "其他";
+      break;
+    case "SSS":
+      levelName.value = "三级特等";
+      break;
+  }
+</script>
 <style lang="scss" scoped>
   .content {
     display: flex;
     justify-content: space-between;
     .left {
-      width: 60%;
+      // width: 60%;
       .tip {
         color: #7f7f7f;
         margin-top: 16px;
         display: flex;
         justify-content: space-between;
+        width: 200px;
         .level,
         .time {
           display: flex;

@@ -24,8 +24,8 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      "/api": {
-        target: "http://127.0.0.1:4523/m1/7289816-7017783-default",
+      "/poms": {
+        target: "https://hwyxtgl.haoweiyun.com.cn",
         changeOrigin: true,
       },
     },
