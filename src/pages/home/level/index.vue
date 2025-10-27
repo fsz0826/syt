@@ -5,18 +5,61 @@
       <div class="left">等级：</div>
       <div class="right">
         <ul>
-          <li class="active">全部</li>
-          <li>三级甲等</li>
-          <li>三级乙等</li>
-          <li>二级甲等</li>
-          <li>二级乙等</li>
-          <li>一级</li>
+          <li
+            :class="{ active: activeFlag === '' }"
+            @click="changeActiveFlag('')"
+          >
+            全部
+          </li>
+          <li
+            v-for="levle in hospitalArr"
+            :key="levle.value"
+            :class="{ active: activeFlag === levle.value }"
+            @click="changeActiveFlag(levle.value)"
+          >
+            {{ levle.name }}
+          </li>
         </ul>
       </div>
     </div>
   </div>
 </template>
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+  import { ref } from "vue";
+
+  interface hospitalArrType {
+    name: string;
+    value: string;
+  }
+
+  const hospitalArr = ref<hospitalArrType[]>([
+    {
+      name: "三级甲等",
+      value: "1",
+    },
+    {
+      name: "三级乙等",
+      value: "2",
+    },
+    {
+      name: "二级甲等",
+      value: "3",
+    },
+    {
+      name: "二级乙等",
+      value: "4",
+    },
+    {
+      name: "一级",
+      value: "5",
+    },
+  ]);
+
+  const activeFlag = ref<string>("");
+  function changeActiveFlag(value: string) {
+    activeFlag.value = value;
+  }
+</script>
 <style lang="scss" scoped>
   .level {
     color: #7f7f7f;
