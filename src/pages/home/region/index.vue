@@ -3,47 +3,67 @@
     <div class="left">地区：</div>
     <div class="right">
       <ul>
-        <li class="active">金水区</li>
-        <li>二七区</li>
-        <li>惠济区</li>
-        <li>管城回族区</li>
-        <li>经开区</li>
-        <li>上街区</li>
-        <li>二七区</li>
-        <li>惠济区</li>
-        <li>管城回族区</li>
-        <li>经开区</li>
-        <li>上街区</li>
-        <li>二七区</li>
-        <li>惠济区</li>
-        <li>管城回族区</li>
-        <li>经开区</li>
-        <li>上街区</li>
-        <li>二七区</li>
-        <li>惠济区</li>
-        <li>管城回族区</li>
-        <li>经开区</li>
-        <li>上街区</li>
-        <li>二七区</li>
-        <li>惠济区</li>
-        <li>管城回族区</li>
-        <li>经开区</li>
-        <li>上街区</li>
-        <li>二七区</li>
-        <li>惠济区</li>
-        <li>管城回族区</li>
-        <li>经开区</li>
-        <li>上街区</li>
-        <li>二七区</li>
-        <li>惠济区</li>
-        <li>管城回族区</li>
-        <li>经开区</li>
-        <li>上街区</li>
+        <li
+          :class="{ active: activeFlag === '' }"
+          @click="changeActiveFlag('')"
+        >
+          全部
+        </li>
+        <li
+          v-for="region in hospitalRegion"
+          :key="region.regionNum"
+          :class="{ active: activeFlag === region.regionNum }"
+          @click="changeActiveFlag(region.regionNum)"
+        >
+          {{ region.name }}
+        </li>
       </ul>
     </div>
   </div>
 </template>
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+  import { ref } from "vue";
+
+  interface hospitalRegionType {
+    name: string;
+    regionNum: string;
+  }
+  const hospitalRegion = ref<hospitalRegionType[]>([
+    {
+      name: "二七区",
+      regionNum: "1",
+    },
+    {
+      name: "惠济区",
+      regionNum: "2",
+    },
+    {
+      name: "管城回族区",
+      regionNum: "3",
+    },
+    {
+      name: "经开区",
+      regionNum: "4",
+    },
+    {
+      name: "上街区",
+      regionNum: "5",
+    },
+    {
+      name: "金水区",
+      regionNum: "6",
+    },
+    {
+      name: "高新区",
+      regionNum: "7",
+    },
+  ]);
+
+  const activeFlag = ref<string>("");
+  function changeActiveFlag(value: string) {
+    activeFlag.value = value;
+  }
+</script>
 <style lang="scss" scoped>
   .region {
     color: #7f7f7f;
