@@ -23,7 +23,7 @@
           />
         </div>
       </el-col>
-      <el-col :span="4"> 456 </el-col>
+      <el-col :span="4"> <Tip /> </el-col>
     </el-row>
   </div>
 </template>
@@ -34,7 +34,10 @@
   import Region from "./region/index.vue";
   import HospitalCard from "./card/index.vue";
   import Pagination from "./pagination/index.vue";
+  import Tip from "./tip/index.vue";
+
   import { reqHospital } from "@/api/home";
+
   import { onMounted, ref } from "vue";
 
   const hospitalList = ref([]);
@@ -77,11 +80,13 @@
   .hospital {
     // display: flex;
     margin-bottom: 10px;
+
     .hospital_card {
       width: 100%;
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
+
       .item {
         width: 48%;
         margin: 10px 0;
