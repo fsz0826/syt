@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-card shadow="hover">
+    <el-card @click="goHospitalInfo" shadow="hover">
       <div class="content">
         <div class="left">
           <div class="hospital_name">{{ hospital.name }}</div>
@@ -73,6 +73,13 @@
 </template>
 <script lang="ts" setup>
   import { ref } from "vue";
+  import { useRouter } from "vue-router";
+
+  const $router = useRouter();
+
+  function goHospitalInfo() {
+    $router.push({ path: "/hospital" });
+  }
 
   const props = defineProps(["hospital"]);
   const levelName = ref<string>("");
