@@ -9,8 +9,13 @@ enum API {
 //     `${API.HOSPITAL_URL}?pageNumber=${pageNumber}&pageSize=${pageSize}`
 //   );
 // };
-export const reqHospital = (pageNumber: string, pageSize: string) => {
+export const reqHospital = (
+  parm: string,
+  pageNumber: string,
+  pageSize: string,
+  status: string
+) => {
   return request.get(
-    `${API.HOSPITAL_URL}?parm=&pageNumber=${pageNumber}&pageSize=${pageSize}&status=`
+    `${API.HOSPITAL_URL}?parm=${parm}&pageNumber=${pageNumber}&pageSize=${pageSize}&status=${status}`
   );
 };

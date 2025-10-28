@@ -1,7 +1,7 @@
 <template>
   <div>
     <Carousel />
-    <Search />
+    <Search @getParm="getParm" :hospitalList="hospitalList" />
     <el-row :gutter="20">
       <el-col :span="20">
         <Level />
@@ -36,26 +36,41 @@
   import Pagination from "./pagination/index.vue";
   import { reqHospital } from "@/api/home";
   import { onMounted, ref } from "vue";
+
   const hospitalList = ref([]);
+  const parm = ref<string>("");
   const pageNum = ref<string>("1");
   const pageSize = ref<string>("10");
+  const status = ref<string>("");
   const total = ref<number>(0);
-  const getHospital = async (pageNum: string, pageSize: string) => {
-    const result = await reqHospital(pageNum, pageSize);
+  const getHospital = async (
+    parm: string,
+    pageNum: string,
+    pageSize: string,
+    status: string
+  ) => {
+    const result = await reqHospital(parm, pageNum, pageSize, status);
     hospitalList.value = result.data.myOrgInfos;
     total.value = result.data.total;
   };
 
   onMounted(() => {
-    getHospital(pageNum.value, pageSize.value);
+    getHospital(parm.value, pageNum.value, pageSize.value, status.value);
   });
+  //获取search组件输入的关键字信息并发起请求
+  const getParm = (value: string) => {
+    parm.value = value;
+    getHospital(parm.value, pageNum.value, pageSize.value, status.value);
+  };
+  //获取分页组件的pageNum并发起请求
   const getPageNum = (pageNumber: string) => {
     pageNum.value = pageNumber;
-    getHospital(pageNum.value, pageSize.value);
+    getHospital(parm.value, pageNum.value, pageSize.value, status.value);
   };
+  //获取分页组件的pageSize并发起请求
   const getPageSize = (pageSi: string) => {
     pageSize.value = pageSi;
-    getHospital(pageNum.value, pageSize.value);
+    getHospital(parm.value, pageNum.value, pageSize.value, status.value);
   };
 </script>
 <style lang="scss" scoped>
