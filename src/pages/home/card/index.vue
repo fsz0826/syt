@@ -76,26 +76,16 @@
 
   const props = defineProps(["hospital"]);
   const levelName = ref<string>("");
-  switch (props.hospital.medicalLevel) {
-    case "AAA":
-      levelName.value = "三级甲等";
-      break;
-    case "BBB":
-      levelName.value = "三级乙等";
-      break;
-    case "AA":
-      levelName.value = "二级甲等";
-      break;
-    case "BB":
-      levelName.value = "二级乙等";
-      break;
-    case "O":
-      levelName.value = "其他";
-      break;
-    case "SSS":
-      levelName.value = "三级特等";
-      break;
-  }
+
+  const medicalLevelMap: Record<string, string> = {
+    AAA: "三级甲等",
+    BBB: "三级乙等",
+    AA: "二级甲等",
+    BB: "二级乙等",
+    O: "其他",
+    SSS: "三级特等",
+  };
+  levelName.value = medicalLevelMap[props.hospital.medicalLevel] || "未知等级";
 </script>
 <style lang="scss" scoped>
   .content {
