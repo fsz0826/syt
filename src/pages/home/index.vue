@@ -7,7 +7,7 @@
         <Level />
         <Region />
         <div class="hospital">
-          <div v-if="hospitalList" class="hospital_card">
+          <div v-if="hospitalList.length > 0" class="hospital_card">
             <HospitalCard
               :hospital="hospital"
               v-for="hospital in hospitalList"
@@ -16,7 +16,11 @@
             />
           </div>
           <el-empty v-else description="description" />
-          <Pagination />
+          <Pagination
+            @getPageNum="getPageNum"
+            @getPageSize="getPageSize"
+            :total="total"
+          />
         </div>
       </el-col>
       <el-col :span="4"> 456 </el-col>
@@ -32,17 +36,27 @@
   import Pagination from "./pagination/index.vue";
   import { reqHospital } from "@/api/home";
   import { onMounted, ref } from "vue";
-  const hospitalList = ref();
-
-  const test = async () => {
-    const result = await reqHospital();
+  const hospitalList = ref([]);
+  const pageNum = ref<string>("1");
+  const pageSize = ref<string>("10");
+  const total = ref<number>(0);
+  const getHospital = async (pageNum: string, pageSize: string) => {
+    const result = await reqHospital(pageNum, pageSize);
     hospitalList.value = result.data.myOrgInfos;
-    console.log(hospitalList.value);
+    total.value = result.data.total;
   };
 
   onMounted(() => {
-    test();
+    getHospital(pageNum.value, pageSize.value);
   });
+  const getPageNum = (pageNumber: string) => {
+    pageNum.value = pageNumber;
+    getHospital(pageNum.value, pageSize.value);
+  };
+  const getPageSize = (pageSi: string) => {
+    pageSize.value = pageSi;
+    getHospital(pageNum.value, pageSize.value);
+  };
 </script>
 <style lang="scss" scoped>
   .hospital {
