@@ -22,12 +22,12 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  server: {
-    proxy: {
-      "/poms": {
-        target: "https://hwyxtgl.haoweiyun.com.cn",
-        changeOrigin: true,
-      },
-    },
-  },
+  // server: {
+  //   proxy: {
+  //     "/poms": {
+  //       target: "https://hwyxtgl.haoweiyun.com.cn",
+  //       changeOrigin: true,
+  //     },
+  //   },
+  // },
 });
