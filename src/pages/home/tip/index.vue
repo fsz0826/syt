@@ -176,7 +176,7 @@
     color: #7f7f7f;
 
     .notice-card {
-      margin-top: 20px;
+      margin: 20px 0;
     }
   }
 </style>
