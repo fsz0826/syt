@@ -2,6 +2,7 @@ import { createApp } from "vue";
 import App from "@/App.vue";
 import "@/style/reset.scss";
 import router from "./router";
+import pinia from "@/store";
 
 //use element-plus
 import ElementPlus from "element-plus";
@@ -28,4 +29,5 @@ app.use(ElementPlus, {
   locale: zhCn,
 });
 app.use(router);
+app.use(pinia);
 app.mount("#app");
