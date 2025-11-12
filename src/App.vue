@@ -5,10 +5,13 @@
       <RouterView />
     </div>
     <HospitalBottom />
+    <LoginDialog />
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+  import LoginDialog from "@/components/login_dialog/index.vue"
+</script>
 
 <style scoped lang="scss">
   .container {

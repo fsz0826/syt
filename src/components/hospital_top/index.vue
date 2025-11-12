@@ -7,16 +7,22 @@
       </div>
       <div class="right">
         <p class="help">帮助中心</p>
-        <p class="login">登录/注册</p>
+        <p class="login" @click="openLoginDialog">登录/注册</p>
       </div>
     </div>
   </div>
 </template>
 <script lang="ts" setup>
-  import { useRouter } from "vue-router";
-  const $router = useRouter();
+  import { useUserStore } from "@/store/modules/userStore"
+  import { useRouter } from "vue-router"
+  const $router = useRouter()
   function goHome() {
-    $router.push({ path: "/" });
+    $router.push({ path: "/" })
+  }
+
+  const userStore = useUserStore()
+  function openLoginDialog() {
+    userStore.targetVisible()
   }
 </script>
 <style lang="scss" scoped>
