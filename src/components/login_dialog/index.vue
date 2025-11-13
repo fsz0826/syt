@@ -87,6 +87,7 @@
   import { useUserStore } from "@/store/modules/userStore"
   import type { FormInstance, FormRules } from "element-plus"
   import { ElMessage } from "element-plus"
+  import { Phone } from "@element-plus/icons-vue"
 
   const userStore = useUserStore()
   const formRef = ref<FormInstance>()
@@ -158,6 +159,7 @@
         if (isRegister.value) {
           registerUser()
         }
+        userStore.login({ phone: form.phone, password: form.password })
       } else {
         ElMessage.error("请填写正确的信息")
         // 验证失败时刷新验证码

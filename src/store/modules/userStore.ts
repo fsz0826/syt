@@ -2,10 +2,9 @@ import { defineStore } from "pinia"
 import { ref } from "vue"
 
 import { reqCaptchaCode } from "@/api/home"
-import { reqUserRegister } from "@/api/user"
+import { reqUserRegister, reqUserLogin } from "@/api/user"
 
 import { ElMessage } from "element-plus"
-import type { AxiosResponse } from "axios"
 
 export const useUserStore = defineStore("userStore", () => {
   const loginIsVisible = ref<boolean>(false)
@@ -34,11 +33,20 @@ export const useUserStore = defineStore("userStore", () => {
       ElMessage.error("注册失败")
     }
   }
+  async function login(data: object) {
+    try {
+      const result: any = await reqUserLogin(data)
+      if (result.code === "400") {
+        ElMessage.error(result.message)
+      }
+    } catch (error) {}
+  }
   return {
     loginIsVisible,
     captchaImage,
     targetVisible,
     getCaptchaImage,
     register,
+    login,
   }
 })
