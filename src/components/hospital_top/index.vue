@@ -23,6 +23,7 @@
   const userStore = useUserStore()
   function openLoginDialog() {
     userStore.targetVisible()
+    userStore.getCaptchaImage()
   }
 </script>
 <style lang="scss" scoped>
