@@ -3,6 +3,7 @@ import express, { Request, Response, NextFunction } from "express"
 
 import hospitalRouter from "./routes/hospital"
 import captchaRouter from "./routes/captcha"
+import userRouter from "./routes/user"
 
 const app = express()
 app.use(cors())
@@ -28,6 +29,7 @@ app.use((req, res, next) => {
 // 路由
 app.use("/api", hospitalRouter)
 app.use("/api", captchaRouter)
+app.use("/api", userRouter)
 
 const port = Number.parseInt(process.env.PORT ?? "3000", 10)
 

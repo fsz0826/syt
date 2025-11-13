@@ -59,7 +59,7 @@
       </el-form-item>
 
       <el-form-item>
-        <el-button type="primary" @click="submitForm">
+        <el-button type="primary" @click="submitForm()">
           {{ isRegister ? "注册" : "登录" }}
         </el-button>
         <el-button @click="resetForm">重置</el-button>
@@ -83,7 +83,7 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, reactive, watch, onMounted } from "vue"
+  import { ref, reactive, watch } from "vue"
   import { useUserStore } from "@/store/modules/userStore"
   import type { FormInstance, FormRules } from "element-plus"
   import { ElMessage } from "element-plus"
@@ -152,9 +152,12 @@
     if (!formRef.value) return
 
     await formRef.value.validate((valid) => {
+      console.log(123)
+
       if (valid) {
-        ElMessage.success(`${isRegister.value ? "注册" : "登录"}成功`)
-        userStore.targetVisible()
+        if (isRegister.value) {
+          registerUser()
+        }
       } else {
         ElMessage.error("请填写正确的信息")
         // 验证失败时刷新验证码
@@ -179,7 +182,10 @@
     }
   )
 
-  // 组件挂载时刷新验证码
+  //注册
+  function registerUser() {
+    userStore.register({ phone: form.phone, password: form.password })
+  }
 </script>
 
 <style scoped lang="scss"></style>
