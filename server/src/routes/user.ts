@@ -2,6 +2,8 @@ import express, { Request, Response, NextFunction } from "express"
 import { createHash } from "crypto"
 
 import pool from "../db/mysql"
+import { generateToken } from "../utils/jwt"
+import { authenticateToken } from "../middleware/auth"
 
 const router = express.Router()
 
@@ -16,6 +18,25 @@ router.post(
       return res.json({
         code: 400,
         message: "手机号和密码为必填项",
+        data: null,
+      })
+    }
+
+    // 简单验证手机号格式
+    const phoneRegex = /^1[3-9]\d{9}$/
+    if (!phoneRegex.test(phone)) {
+      return res.json({
+        code: 400,
+        message: "手机号格式不正确",
+        data: null,
+      })
+    }
+
+    // 验证密码强度
+    if (password.length < 6) {
+      return res.json({
+        code: 400,
+        message: "密码长度不能少于6位",
         data: null,
       })
     }
@@ -45,12 +66,19 @@ router.post(
       )
 
       if (result.affectedRows === 1) {
+        // 生成JWT token
+        const token = generateToken({ 
+          userId: result.insertId,
+          phone 
+        })
+
         res.json({
           code: 200,
           message: "注册成功",
           data: {
             userId: result.insertId,
             phone,
+            token
           },
         })
       } else {
@@ -86,12 +114,20 @@ router.post(
 
       if (users.length > 0) {
         const user = users[0]
+        
+        // 生成JWT token
+        const token = generateToken({ 
+          userId: user.id,
+          phone: user.phone 
+        })
+        
         res.json({
           code: 200,
           message: "登录成功",
           data: {
             userId: user.id,
             phone: user.phone,
+            token
           },
         })
       } else {
@@ -101,6 +137,29 @@ router.post(
           data: null,
         })
       }
+    } catch (error) {
+      next(error)
+    }
+  }
+)
+
+// 获取用户信息接口
+router.get(
+  "/userinfo",
+  authenticateToken,
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      // 从token中获取用户信息
+      const user = req.user
+      
+      res.json({
+        code: 200,
+        message: "获取用户信息成功",
+        data: {
+          userId: user.userId,
+          phone: user.phone
+        }
+      })
     } catch (error) {
       next(error)
     }

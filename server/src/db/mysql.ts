@@ -12,4 +12,21 @@ const pool = createPool({
   charset: "utf8mb4_unicode_ci",
 })
 
+// 监听连接池事件
+pool.on("connection", (connection) => {
+  console.log(`[DB] New connection established (ID: ${connection.threadId})`)
+})
+
+pool.on("acquire", (connection) => {
+  console.log(`[DB] Connection acquired (ID: ${connection.threadId})`)
+})
+
+pool.on("release", (connection) => {
+  console.log(`[DB] Connection released (ID: ${connection.threadId})`)
+})
+
+pool.on("enqueue", () => {
+  console.log("[DB] Waiting for available connection slot")
+})
+
 export default pool

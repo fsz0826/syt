@@ -87,8 +87,9 @@ router.get("/captcha", (req: Request, res: Response) => {
     code: 200,
     message: "success",
     data: {
-      captchaImage: imageDataURI,
-      captchaCode: captchaCode, // 实际项目中不应返回验证码文本，这里仅为演示
+      captchaImage: imageDataURI
+      // 实际项目中不应返回验证码文本，这里仅为演示
+      // captchaCode: captchaCode, 
     },
   })
 })
