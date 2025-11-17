@@ -36,7 +36,11 @@ export const useUserStore = defineStore("userStore", () => {
   async function login(data: object) {
     try {
       const result: any = await reqUserLogin(data)
+      console.log("-----", result)
+
       if (result.code === "400") {
+        console.log("----", result.code)
+
         ElMessage.error(result.message)
       }
     } catch (error) {}
