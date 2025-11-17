@@ -16,7 +16,7 @@ router.post(
     // 检查必填字段
     if (!phone || !password) {
       return res.json({
-        code: 400,
+        code: "400",
         message: "手机号和密码为必填项",
         data: null,
       })
@@ -26,7 +26,7 @@ router.post(
     const phoneRegex = /^1[3-9]\d{9}$/
     if (!phoneRegex.test(phone)) {
       return res.json({
-        code: 400,
+        code: "400",
         message: "手机号格式不正确",
         data: null,
       })
@@ -35,7 +35,7 @@ router.post(
     // 验证密码强度
     if (password.length < 6) {
       return res.json({
-        code: 400,
+        code: "400",
         message: "密码长度不能少于6位",
         data: null,
       })
@@ -50,7 +50,7 @@ router.post(
 
       if (existingUsers.length > 0) {
         return res.json({
-          code: 400,
+          code: "400",
           message: "该手机号已注册",
           data: null,
         })
@@ -67,18 +67,18 @@ router.post(
 
       if (result.affectedRows === 1) {
         // 生成JWT token
-        const token = generateToken({ 
+        const token = generateToken({
           userId: result.insertId,
-          phone 
+          phone,
         })
 
         res.json({
-          code: 200,
+          code: "200",
           message: "注册成功",
           data: {
             userId: result.insertId,
             phone,
-            token
+            token,
           },
         })
       } else {
@@ -99,7 +99,7 @@ router.post(
     // 检查必填字段
     if (!phone || !password) {
       return res.json({
-        code: 400,
+        code: "400",
         message: "手机号和密码为必填项",
         data: null,
       })
@@ -114,25 +114,25 @@ router.post(
 
       if (users.length > 0) {
         const user = users[0]
-        
+
         // 生成JWT token
-        const token = generateToken({ 
+        const token = generateToken({
           userId: user.id,
-          phone: user.phone 
+          phone: user.phone,
         })
-        
+
         res.json({
-          code: 200,
+          code: "200",
           message: "登录成功",
           data: {
             userId: user.id,
             phone: user.phone,
-            token
+            token,
           },
         })
       } else {
         res.json({
-          code: 400,
+          code: "400",
           message: "手机号或密码错误",
           data: null,
         })
@@ -151,14 +151,14 @@ router.get(
     try {
       // 从token中获取用户信息
       const user = req.user
-      
+
       res.json({
-        code: 200,
+        code: "200",
         message: "获取用户信息成功",
         data: {
           userId: user.userId,
-          phone: user.phone
-        }
+          phone: user.phone,
+        },
       })
     } catch (error) {
       next(error)

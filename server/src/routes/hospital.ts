@@ -72,7 +72,7 @@ router.get(
       const [rows] = await pool.query<HospitalRow[]>(dataSql, dataParams)
 
       res.json({
-        code: 200,
+        code: "200",
         message: "success",
         data: {
           total,

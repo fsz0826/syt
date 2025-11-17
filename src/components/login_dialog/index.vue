@@ -153,13 +153,11 @@
     if (!formRef.value) return
 
     await formRef.value.validate((valid) => {
-      console.log(123)
-
       if (valid) {
         if (isRegister.value) {
           registerUser()
         }
-        userStore.login({ phone: form.phone, password: form.password })
+        login()
       } else {
         ElMessage.error("请填写正确的信息")
         // 验证失败时刷新验证码
@@ -187,6 +185,11 @@
   //注册
   function registerUser() {
     userStore.register({ phone: form.phone, password: form.password })
+  }
+
+  //登录
+  function login() {
+    userStore.login({ phone: form.phone, password: form.password })
   }
 </script>
 
