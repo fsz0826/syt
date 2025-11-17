@@ -5,24 +5,39 @@
         <el-icon><House /></el-icon>
         <p>/ 医院信息</p>
       </div>
-      <el-menu :default-active="$route.path" router>
-        <el-menu-item index="/hospital/register">
+      <el-menu :default-active="$route.path">
+        <el-menu-item
+          index="/hospital/register"
+          @click="onClick('/hospital/register')"
+        >
           <el-icon><Menu /></el-icon>
           <span>预约挂号</span>
         </el-menu-item>
-        <el-menu-item index="/hospital/detail">
+        <el-menu-item
+          index="/hospital/detail"
+          @click="onClick('/hospital/detail')"
+        >
           <el-icon><Document /></el-icon>
           <span>医院详情</span>
         </el-menu-item>
-        <el-menu-item index="/hospital/notice">
+        <el-menu-item
+          index="/hospital/notice"
+          @click="onClick('/hospital/notice')"
+        >
           <el-icon><ChatDotSquare /></el-icon>
           <span>预约通知</span>
         </el-menu-item>
-        <el-menu-item index="/hospital/close">
+        <el-menu-item
+          index="/hospital/close"
+          @click="onClick('/hospital/close')"
+        >
           <el-icon><InfoFilled /></el-icon>
           <span>停诊信息</span>
         </el-menu-item>
-        <el-menu-item index="/hospital/search">
+        <el-menu-item
+          index="/hospital/search"
+          @click="onClick('/hospital/search')"
+        >
           <el-icon><Search /></el-icon>
           <span>查询/取消</span>
         </el-menu-item>
@@ -41,9 +56,24 @@
     Search,
     InfoFilled,
     ChatDotSquare,
-  } from "@element-plus/icons-vue";
-  import { useRoute } from "vue-router";
-  const $route = useRoute();
+  } from "@element-plus/icons-vue"
+  import { useRoute, useRouter } from "vue-router"
+  import { useHospitalStore } from "@/store/modules/hospitalStore"
+  import { onMounted } from "vue"
+
+  const hospitalStore = useHospitalStore()
+  const $route = useRoute()
+  const $router = useRouter()
+  console.log($route)
+
+  onMounted(() => {
+    hospitalStore.getHospitalInfo($route.query.code as string)
+  })
+  function onClick(path: string) {
+    console.log("---", $route)
+
+    $router.push({ path: path, query: { code: $route.query.code } })
+  }
 </script>
 <style lang="scss" scoped>
   .hospital {

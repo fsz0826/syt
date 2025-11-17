@@ -72,17 +72,23 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { ref } from "vue";
-  import { useRouter } from "vue-router";
+  import { useHospitalStore } from "@/store/modules/hospitalStore"
+  import { ref } from "vue"
+  import { useRouter } from "vue-router"
 
-  const $router = useRouter();
+  const hospitalStore = useHospitalStore()
+
+  const $router = useRouter()
 
   function goHospitalInfo() {
-    $router.push({ path: "/hospital" });
+    $router.push({
+      path: "/hospital/register",
+      query: { code: props.hospital.code },
+    })
   }
 
-  const props = defineProps(["hospital"]);
-  const levelName = ref<string>("");
+  const props = defineProps(["hospital"])
+  const levelName = ref<string>("")
 
   const medicalLevelMap: Record<string, string> = {
     AAA: "三级甲等",
@@ -91,8 +97,8 @@
     BB: "二级乙等",
     O: "其他",
     SSS: "三级特等",
-  };
-  levelName.value = medicalLevelMap[props.hospital.medicalLevel] || "未知等级";
+  }
+  levelName.value = medicalLevelMap[props.hospital.medicalLevel] || "未知等级"
 </script>
 <style lang="scss" scoped>
   .content {
