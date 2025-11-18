@@ -18,37 +18,37 @@
 </template>
 <script lang="ts" setup></script>
 <style lang="scss" scoped>
-.bottom {
-  width: 100%;
-  height: 50px;
-  background-color: #f2f0f5;
-  display: flex;
-  justify-content: center;
-  .content {
-    width: 1200px;
+  .bottom {
+    width: 100%;
+    height: var(--bottom-height);
+    background-color: #f2f0f5;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    .content {
+      width: 1200px;
+      display: flex;
+      justify-content: space-between;
 
-    .left {
-      display: flex;
-      font-size: 14px;
-      align-items: center;
-      p:first-child {
-        margin-right: 10px;
-      }
-    }
-    .right {
-      display: flex;
-      ul {
+      .left {
         display: flex;
-        justify-content: center;
+        font-size: 14px;
         align-items: center;
-        li {
-          font-size: 14px;
+        p:first-child {
           margin-right: 10px;
+        }
+      }
+      .right {
+        display: flex;
+        ul {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          li {
+            font-size: 14px;
+            margin-right: 10px;
+          }
         }
       }
     }
   }
-}
 </style>

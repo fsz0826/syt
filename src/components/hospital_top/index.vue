@@ -29,7 +29,7 @@
 <style lang="scss" scoped>
   .top {
     width: 100%;
-    height: 70px;
+    height: var(--top-height);
     background-color: #fff;
     display: flex;
     justify-content: center;

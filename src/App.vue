@@ -19,7 +19,8 @@
     flex-direction: column;
     align-items: center;
     .content {
-      min-height: 700px;
+      // min-height: 700px;
+      min-height: calc(100vh - var(--top-height) - var(--bottom-height));
       width: 1200px;
       margin-top: 70px;
     }
